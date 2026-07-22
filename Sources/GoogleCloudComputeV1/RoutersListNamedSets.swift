@@ -14,154 +14,44 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#if Addresses || Autoscalers || BackendBuckets || BackendServices || CrossSiteNetworks || Disks || ExternalVpnGateways || FirewallPolicies || Firewalls || ForwardingRules || FutureReservations || GlobalAddresses || GlobalForwardingRules || GlobalNetworkEndpointGroups || GlobalOperations || GlobalOrganizationOperations || GlobalPublicDelegatedPrefixes || GlobalVmExtensionPolicies || HealthChecks || HttpHealthChecks || HttpsHealthChecks || Images || InstanceGroupManagerResizeRequests || InstanceGroupManagers || InstanceGroups || InstanceSettings || InstanceTemplates || Instances || InstantSnapshotGroups || InstantSnapshots || InterconnectAttachmentGroups || InterconnectAttachments || InterconnectGroups || Interconnects || Licenses || MachineImages || NetworkAttachments || NetworkEdgeSecurityServices || NetworkEndpointGroups || NetworkFirewallPolicies || Networks || NodeGroups || NodeTemplates || OrganizationSecurityPolicies || PacketMirrorings || PreviewFeatures || Projects || PublicAdvertisedPrefixes || PublicDelegatedPrefixes || RegionAutoscalers || RegionBackendBuckets || RegionBackendServices || RegionCommitments || RegionCompositeHealthChecks || RegionDisks || RegionHealthAggregationPolicies || RegionHealthCheckServices || RegionHealthChecks || RegionHealthSources || RegionInstanceGroupManagerResizeRequests || RegionInstanceGroupManagers || RegionInstanceGroups || RegionInstanceTemplates || RegionInstances || RegionInstantSnapshotGroups || RegionInstantSnapshots || RegionNetworkEndpointGroups || RegionNetworkFirewallPolicies || RegionNotificationEndpoints || RegionOperations || RegionSecurityPolicies || RegionSnapshotSettings || RegionSnapshots || RegionSslCertificates || RegionSslPolicies || RegionTargetHttpProxies || RegionTargetHttpsProxies || RegionTargetTcpProxies || RegionUrlMaps || ReservationBlocks || ReservationSlots || ReservationSubBlocks || Reservations || ResourcePolicies || RolloutPlans || Rollouts || Routers || Routes || SecurityPolicies || ServiceAttachments || SnapshotSettings || Snapshots || SslCertificates || SslPolicies || StoragePools || Subnetworks || TargetGrpcProxies || TargetHttpProxies || TargetHttpsProxies || TargetInstances || TargetPools || TargetSslProxies || TargetTcpProxies || TargetVpnGateways || UrlMaps || VpnGateways || VpnTunnels || WireGroups || ZoneOperations || ZoneVmExtensionPolicies
+#if Routers
   import Foundation
+  import GoogleCloudGax
   import GoogleCloudWkt
 
-  /// Represents an Operation resource.
-  ///
-  /// Google Compute Engine has three Operation resources:
-  ///
-  /// * [Global](/compute/docs/reference/rest/v1/globalOperations)
-  /// * [Regional](/compute/docs/reference/rest/v1/regionOperations)
-  /// * [Zonal](/compute/docs/reference/rest/v1/zoneOperations)
-  ///
-  /// You can use an operation resource to manage asynchronous API requests.
-  /// For more information, readHandling
-  /// API responses.
-  ///
-  /// Operations can be global, regional or zonal.
-  ///
-  ///    - For global operations, use the `globalOperations`
-  ///    resource.
-  ///    - For regional operations, use the
-  ///    `regionOperations` resource.
-  ///    - For zonal operations, use
-  ///    the `zoneOperations` resource.
-  ///
-  ///
-  ///
-  /// For more information, read
-  /// Global, Regional, and Zonal Resources.
-  ///
-  /// Note that completed Operation resources have a limited
-  /// retention period.
-  public struct Operation: Codable, Equatable, GoogleCloudWkt._AnyPackable,
+  public struct RoutersListNamedSets: Codable, Equatable, GoogleCloudWkt._AnyPackable,
+    GoogleCloudGax._PaginatedResponse,
     Sendable
   {
-    /// [Output Only] The value of `requestId` if you provided it in the request.
-    /// Not present otherwise.
-    public var clientOperationId: Swift.String? = nil
+    public var etag: Swift.String? = nil
 
-    /// [Deprecated] This field is deprecated.
-    public var creationTimestamp: Swift.String? = nil
-
-    /// [Output Only] A textual description of the operation, which is
-    /// set when the operation is created.
-    public var description: Swift.String? = nil
-
-    /// [Output Only] The time that this operation was completed. This value is inRFC3339
-    /// text format.
-    public var endTime: Swift.String? = nil
-
-    /// [Output Only] If errors are generated during processing of the operation,
-    /// this field will be populated.
-    public var error: Operation.Error? = nil
-
-    public var getVersionOperationMetadata: GetVersionOperationMetadata? = nil
-
-    /// [Output Only] If the operation fails, this field contains the HTTP error
-    /// message that was returned, such as `NOT FOUND`.
-    public var httpErrorMessage: Swift.String? = nil
-
-    /// [Output Only] If the operation fails, this field contains the HTTP error
-    /// status code that was returned. For example, a `404` means the
-    /// resource was not found.
-    public var httpErrorStatusCode: Swift.Int32? = nil
-
-    /// [Output Only] The unique identifier for the operation. This identifier is
+    /// [Output Only] The unique identifier for the resource. This identifier is
     /// defined by the server.
-    public var id: Swift.UInt64? = nil
+    public var id: Swift.String? = nil
 
-    /// [Output Only] The time that this operation was requested.
-    /// This value is inRFC3339
-    /// text format.
-    public var insertTime: Swift.String? = nil
-
-    public var instancesBulkInsertOperationMetadata: InstancesBulkInsertOperationMetadata? = nil
-
-    /// Output only. [Output Only] Type of the resource. Always `compute#operation` for
-    /// Operation resources.
+    /// Output only. [Output Only] Type of resource. Alwayscompute#routersListNamedSets for lists of named sets.
     public var kind: Swift.String? = nil
 
-    /// [Output Only] Name of the operation.
-    public var name: Swift.String? = nil
+    /// [Output Only] This token allows you to get the next page of results for
+    /// list requests. If the number of results is larger thanmaxResults, use the nextPageToken as a value for
+    /// the query parameter pageToken in the next list request.
+    /// Subsequent list requests will have their own nextPageToken to
+    /// continue paging through the results.
+    public var nextPageToken: Swift.String? = nil
 
-    /// Output only. [Output Only] An ID that represents a group of operations, such as when a
-    /// group of operations results from a `bulkInsert` API request.
-    public var operationGroupId: Swift.String? = nil
+    /// [Output Only] A list of named sets.
+    public var result: [NamedSet] = []
 
-    /// [Output Only] The type of operation, such as `insert`,
-    /// `update`, or `delete`, and so on.
-    public var operationType: Swift.String? = nil
-
-    /// [Output Only] An optional progress indicator that ranges from 0 to 100.
-    /// There is no requirement that this be linear or support any granularity of
-    /// operations. This should not be used to guess when the operation will be
-    /// complete. This number should monotonically increase as the operation
-    /// progresses.
-    public var progress: Swift.Int32? = nil
-
-    /// [Output Only] The URL of the region where the operation resides. Only
-    /// applicable when performing regional operations.
-    public var region: Swift.String? = nil
-
-    /// [Output Only] Server-defined URL for the resource.
+    /// Output only. [Output Only] Server-defined URL for this resource.
     public var selfLink: Swift.String? = nil
 
-    /// Output only. [Output Only] If the operation is for projects.setCommonInstanceMetadata,
-    /// this field will contain information on all underlying zonal actions and
-    /// their state.
-    public var setCommonInstanceMetadataOperationMetadata:
-      SetCommonInstanceMetadataOperationMetadata? = nil
+    /// Output only. [Output Only] Unreachable resources.
+    public var unreachables: [Swift.String] = []
 
-    /// [Output Only] The time that this operation was started by the server.
-    /// This value is inRFC3339
-    /// text format.
-    public var startTime: Swift.String? = nil
+    /// [Output Only] Informational warning message.
+    public var warning: RoutersListNamedSets.Warning? = nil
 
-    /// [Output Only] The status of the operation, which can be one of the
-    /// following:
-    /// `PENDING`, `RUNNING`, or `DONE`.
-    public var status: Operation.Status? = nil
-
-    /// [Output Only] An optional textual description of the current status of the
-    /// operation.
-    public var statusMessage: Swift.String? = nil
-
-    /// [Output Only] The unique target ID, which identifies a specific incarnation
-    /// of the target resource.
-    public var targetId: Swift.UInt64? = nil
-
-    /// [Output Only] The URL of the resource that the operation modifies. For
-    /// operations related to creating a snapshot, this points to the disk
-    /// that the snapshot was created from.
-    public var targetLink: Swift.String? = nil
-
-    /// [Output Only] User who requested the operation, for example:
-    /// `user@example.com` or
-    /// `alice_smith_identifier (global/workforcePools/example-com-us-employees)`.
-    public var user: Swift.String? = nil
-
-    /// [Output Only] If warning messages are generated during processing of the
-    /// operation, this field will be populated.
-    public var warnings: [Operation.Warnings] = []
-
-    /// [Output Only] The URL of the zone where the operation resides. Only
-    /// applicable when performing per-zone operations.
-    public var zone: Swift.String? = nil
-
-    /// Initialize a new instance of `Operation`.
+    /// Initialize a new instance of `RoutersListNamedSets`.
     public init() {}
 
     /// Use `config` to return a new instance of this object, with some fields updated.
@@ -169,7 +59,7 @@
     /// Commonly used to initialize the value, for example:
     ///
     /// ```
-    /// let value = Operation().with { $0.clientOperationId = ... }
+    /// let value = RoutersListNamedSets().with { $0.etag = ... }
     /// ```
     public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
       var copy = self
@@ -177,148 +67,16 @@
       return copy
     }
 
-    /// The message type for the [error][google.cloud.compute.v1.Operation.error] field.
+    /// The message type for the [warning][google.cloud.compute.v1.RoutersListNamedSets.warning] field.
     ///
-    /// [google.cloud.compute.v1.Operation.error]: <doc:Operation/Error>
-    public struct Error: Codable, Equatable, GoogleCloudWkt._AnyPackable,
-      Sendable
-    {
-      /// [Output Only] The array of errors encountered while processing this
-      /// operation.
-      public var errors: [Operation.Error.Errors] = []
-
-      /// Initialize a new instance of `Error`.
-      public init() {}
-
-      /// Use `config` to return a new instance of this object, with some fields updated.
-      ///
-      /// Commonly used to initialize the value, for example:
-      ///
-      /// ```
-      /// let value = Error().with { $0.errors = ... }
-      /// ```
-      public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
-        var copy = self
-        try config(&copy)
-        return copy
-      }
-
-      /// The message type for the [errors][google.cloud.compute.v1.Operation.error.errors] field.
-      ///
-      /// [google.cloud.compute.v1.Operation.error.errors]: <doc:Operation/Error/Errors>
-      public struct Errors: Codable, Equatable, GoogleCloudWkt._AnyPackable,
-        Sendable
-      {
-        /// [Output Only] The error type identifier for this error.
-        public var code: Swift.String? = nil
-
-        /// [Output Only] An optional list of messages that contain the error
-        /// details. There is a set of defined message types to use for providing
-        /// details.The syntax depends on the error code. For example,
-        /// QuotaExceededInfo will have details when the error code is
-        /// QUOTA_EXCEEDED.
-        public var errorDetails: [Operation.Error.Errors.ErrorDetails] = []
-
-        /// [Output Only] Indicates the field in the request that caused the error.
-        /// This property is optional.
-        public var location: Swift.String? = nil
-
-        /// [Output Only] An optional, human-readable error message.
-        public var message: Swift.String? = nil
-
-        /// Initialize a new instance of `Errors`.
-        public init() {}
-
-        /// Use `config` to return a new instance of this object, with some fields updated.
-        ///
-        /// Commonly used to initialize the value, for example:
-        ///
-        /// ```
-        /// let value = Errors().with { $0.code = ... }
-        /// ```
-        public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
-          var copy = self
-          try config(&copy)
-          return copy
-        }
-
-        /// The message type for the [errorDetails][google.cloud.compute.v1.Operation.error.errors.errorDetails] field.
-        ///
-        /// [google.cloud.compute.v1.Operation.error.errors.errorDetails]: <doc:Operation/Error/Errors/ErrorDetails>
-        public struct ErrorDetails: Codable, Equatable, GoogleCloudWkt._AnyPackable,
-          Sendable
-        {
-          /// Error information containing structured domain, reason, and metadata.
-          public var errorInfo: ErrorInfo? = nil
-
-          /// Links and information to help the user resolve the error.
-          public var help: Help? = nil
-
-          /// A localized human-readable error message intended for end users.
-          public var localizedMessage: LocalizedMessage? = nil
-
-          /// Details about quota limits and metrics when a quota is exceeded.
-          public var quotaInfo: QuotaExceededInfo? = nil
-
-          /// Initialize a new instance of `ErrorDetails`.
-          public init() {}
-
-          /// Use `config` to return a new instance of this object, with some fields updated.
-          ///
-          /// Commonly used to initialize the value, for example:
-          ///
-          /// ```
-          /// let value = ErrorDetails().with { $0.errorInfo = ... }
-          /// ```
-          public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
-            var copy = self
-            try config(&copy)
-            return copy
-          }
-
-          public static var _anyTypeUrl: Swift.String {
-            return "type.googleapis.com/google.cloud.compute.v1.Operation.error.errors.errorDetails"
-          }
-          public init(fromAny any: GoogleCloudWkt.`Any`) throws {
-            self = try GoogleCloudWkt._slowAnyDeserialize(Self.self, from: any)
-          }
-          public func _pack() throws -> GoogleCloudWkt.Struct {
-            return try GoogleCloudWkt._slowAnySerialize(message: self)
-          }
-        }
-
-        public static var _anyTypeUrl: Swift.String {
-          return "type.googleapis.com/google.cloud.compute.v1.Operation.error.errors"
-        }
-        public init(fromAny any: GoogleCloudWkt.`Any`) throws {
-          self = try GoogleCloudWkt._slowAnyDeserialize(Self.self, from: any)
-        }
-        public func _pack() throws -> GoogleCloudWkt.Struct {
-          return try GoogleCloudWkt._slowAnySerialize(message: self)
-        }
-      }
-
-      public static var _anyTypeUrl: Swift.String {
-        return "type.googleapis.com/google.cloud.compute.v1.Operation.error"
-      }
-      public init(fromAny any: GoogleCloudWkt.`Any`) throws {
-        self = try GoogleCloudWkt._slowAnyDeserialize(Self.self, from: any)
-      }
-      public func _pack() throws -> GoogleCloudWkt.Struct {
-        return try GoogleCloudWkt._slowAnySerialize(message: self)
-      }
-    }
-
-    /// The message type for the [warnings][google.cloud.compute.v1.Operation.warnings] field.
-    ///
-    /// [google.cloud.compute.v1.Operation.warnings]: <doc:Operation/Warnings>
-    public struct Warnings: Codable, Equatable, GoogleCloudWkt._AnyPackable,
+    /// [google.cloud.compute.v1.RoutersListNamedSets.warning]: <doc:RoutersListNamedSets/Warning>
+    public struct Warning: Codable, Equatable, GoogleCloudWkt._AnyPackable,
       Sendable
     {
       /// [Output Only] A warning code, if applicable. For example, Compute
       /// Engine returns NO_RESULTS_ON_PAGE if there
       /// are no results in the response.
-      public var code: Operation.Warnings.Code? = nil
+      public var code: RoutersListNamedSets.Warning.Code? = nil
 
       /// [Output Only] Metadata about this warning in key:
       /// value format. For example:
@@ -328,12 +86,12 @@
       ///    "key": "scope",
       ///    "value": "zones/us-east1-d"
       ///   }
-      public var data: [Operation.Warnings.Data] = []
+      public var data: [RoutersListNamedSets.Warning.Data] = []
 
       /// [Output Only] A human-readable description of the warning code.
       public var message: Swift.String? = nil
 
-      /// Initialize a new instance of `Warnings`.
+      /// Initialize a new instance of `Warning`.
       public init() {}
 
       /// Use `config` to return a new instance of this object, with some fields updated.
@@ -341,7 +99,7 @@
       /// Commonly used to initialize the value, for example:
       ///
       /// ```
-      /// let value = Warnings().with { $0.code = ... }
+      /// let value = Warning().with { $0.code = ... }
       /// ```
       public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
         var copy = self
@@ -349,9 +107,9 @@
         return copy
       }
 
-      /// The message type for the [data][google.cloud.compute.v1.Operation.warnings.data] field.
+      /// The message type for the [data][google.cloud.compute.v1.RoutersListNamedSets.warning.data] field.
       ///
-      /// [google.cloud.compute.v1.Operation.warnings.data]: <doc:Operation/Warnings/Data>
+      /// [google.cloud.compute.v1.RoutersListNamedSets.warning.data]: <doc:RoutersListNamedSets/Warning/Data>
       public struct Data: Codable, Equatable, GoogleCloudWkt._AnyPackable,
         Sendable
       {
@@ -384,7 +142,7 @@
         }
 
         public static var _anyTypeUrl: Swift.String {
-          return "type.googleapis.com/google.cloud.compute.v1.Operation.warnings.data"
+          return "type.googleapis.com/google.cloud.compute.v1.RoutersListNamedSets.warning.data"
         }
         public init(fromAny any: GoogleCloudWkt.`Any`) throws {
           self = try GoogleCloudWkt._slowAnyDeserialize(Self.self, from: any)
@@ -394,9 +152,9 @@
         }
       }
 
-      /// The enumerated type for the [code][google.cloud.compute.v1.Operation.warnings.code] field.
+      /// The enumerated type for the [code][google.cloud.compute.v1.RoutersListNamedSets.warning.code] field.
       ///
-      /// [google.cloud.compute.v1.Operation.warnings.code]: <doc:Operation/Warnings/Code>
+      /// [google.cloud.compute.v1.RoutersListNamedSets.warning.code]: <doc:RoutersListNamedSets/Warning/Code>
       public enum Code: Codable, Equatable, Sendable {
         /// Warning about failed cleanup of transient changes made by a failed
         /// operation.
@@ -705,7 +463,7 @@
       }
 
       public static var _anyTypeUrl: Swift.String {
-        return "type.googleapis.com/google.cloud.compute.v1.Operation.warnings"
+        return "type.googleapis.com/google.cloud.compute.v1.RoutersListNamedSets.warning"
       }
       public init(fromAny any: GoogleCloudWkt.`Any`) throws {
         self = try GoogleCloudWkt._slowAnyDeserialize(Self.self, from: any)
@@ -715,121 +473,22 @@
       }
     }
 
-    /// The enumerated type for the [status][google.cloud.compute.v1.Operation.status] field.
-    ///
-    /// [google.cloud.compute.v1.Operation.status]: <doc:Operation/Status>
-    public enum Status: Codable, Equatable, Sendable {
-      /// The operation has completed processing successfully or with an error.
-      case done
-      /// The operation is waiting to be processed.
-      case pending
-      /// The operation is actively being processed.
-      case running
-      /// Encodes an unknown integer value.
-      ///
-      /// The most common cause for an unknown values is for the service to send
-      /// a value unknown to the library. We recommend you update your library to
-      /// the latest version.
-      case unknownIntValue(Int)
-      /// Encodes an unknown string value.
-      ///
-      /// The most common cause for an unknown values is for the service to send
-      /// a value unknown to the library. We recommend you update your library to
-      /// the latest version.
-      case unknownStringValue(String)
-
-      public init() {
-        self = .done
-      }
-
-      /// Returns the integer value associated with the enumeration.
-      ///
-      /// If the enumeration was initialized with an unknown string value, this returns `nil`.
-      public var intValue: Int? {
-        switch self {
-        case .done: return 0
-        case .pending: return 1
-        case .running: return 2
-        case .unknownIntValue(let v): return v
-        case .unknownStringValue: return nil
-        }
-      }
-
-      /// Returns the string value (or name) associated with the enumeration.
-      ///
-      /// If the enumeration was initialized with an unknown integer value, this returns `nil`.
-      public var stringValue: Swift.String? {
-        switch self {
-        case .done: return "DONE"
-        case .pending: return "PENDING"
-        case .running: return "RUNNING"
-        case .unknownIntValue: return nil
-        case .unknownStringValue(let v): return v
-        }
-      }
-
-      /// Initialize from a string value.
-      ///
-      /// If the value is unknown, this initializes to ``.unknownStringValue(_:)``.
-      public init(stringValue: Swift.String) {
-        switch stringValue {
-        case "DONE": self = .done
-        case "PENDING": self = .pending
-        case "RUNNING": self = .running
-        default: self = .unknownStringValue(stringValue)
-        }
-      }
-
-      /// Initialize from an integer value.
-      ///
-      /// If the value is unknown, this initializes to ``.unknownIntValue(_:)``.
-      public init(intValue: Int) {
-        switch intValue {
-        case 0: self = .done
-        case 1: self = .pending
-        case 2: self = .running
-        default: self = .unknownIntValue(intValue)
-        }
-      }
-
-      public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let v = try? container.decode(Int.self) {
-          self.init(intValue: v)
-          return
-        }
-        if let s = try? container.decode(String.self) {
-          if let v = Int(s) {
-            self.init(intValue: v)
-          } else {
-            self.init(stringValue: s)
-          }
-          return
-        }
-        throw DecodingError.dataCorruptedError(
-          in: container, debugDescription: "Expected enum value, must be integer or string.")
-      }
-
-      public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .done: return try container.encode(0)
-        case .pending: return try container.encode(1)
-        case .running: return try container.encode(2)
-        case .unknownIntValue(let v): return try container.encode(v)
-        case .unknownStringValue(let v): return try container.encode(v)
-        }
-      }
-    }
-
     public static var _anyTypeUrl: Swift.String {
-      return "type.googleapis.com/google.cloud.compute.v1.Operation"
+      return "type.googleapis.com/google.cloud.compute.v1.RoutersListNamedSets"
     }
     public init(fromAny any: GoogleCloudWkt.`Any`) throws {
       self = try GoogleCloudWkt._slowAnyDeserialize(Self.self, from: any)
     }
     public func _pack() throws -> GoogleCloudWkt.Struct {
       return try GoogleCloudWkt._slowAnySerialize(message: self)
+    }
+
+    public func _getPaginatedItems() -> [NamedSet] {
+      return self.result
+    }
+
+    public func _nextPageToken() -> Swift.String {
+      return self.nextPageToken ?? ""
     }
   }
 #endif

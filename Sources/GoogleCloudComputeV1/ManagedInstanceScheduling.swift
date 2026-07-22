@@ -14,22 +14,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#if InstanceGroupManagerResizeRequests || InstanceGroupManagers || RegionInstanceGroupManagerResizeRequests || RegionInstanceGroupManagers
+#if InstanceGroupManagers || RegionInstanceGroupManagers
   import Foundation
   import GoogleCloudWkt
 
-  public struct PreservedStatePreservedNetworkIpIpAddress: Codable, Equatable, GoogleCloudWkt
-      ._AnyPackable,
+  public struct ManagedInstanceScheduling: Codable, Equatable, GoogleCloudWkt._AnyPackable,
     Sendable
   {
-    /// The URL of the reservation for this IP address.
-    public var address: Swift.String? = nil
+    /// Output only. The timestamp at which the underlying instance will be
+    /// triggered for graceful shutdown if it is configured. This is in RFC3339 text format.
+    public var gracefulShutdownTimestamp: GoogleCloudWkt.Timestamp? = nil
 
-    /// An IPv4 internal network address to assign to the instance for this
-    /// network interface.
-    public var literal: Swift.String? = nil
+    /// Output only. The timestamp at which the managed instance will be terminated. This is
+    /// in RFC3339 text
+    /// format.
+    public var terminationTimestamp: GoogleCloudWkt.Timestamp? = nil
 
-    /// Initialize a new instance of `PreservedStatePreservedNetworkIpIpAddress`.
+    /// Initialize a new instance of `ManagedInstanceScheduling`.
     public init() {}
 
     /// Use `config` to return a new instance of this object, with some fields updated.
@@ -37,7 +38,7 @@
     /// Commonly used to initialize the value, for example:
     ///
     /// ```
-    /// let value = PreservedStatePreservedNetworkIpIpAddress().with { $0.address = ... }
+    /// let value = ManagedInstanceScheduling().with { $0.gracefulShutdownTimestamp = ... }
     /// ```
     public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
       var copy = self
@@ -46,7 +47,7 @@
     }
 
     public static var _anyTypeUrl: Swift.String {
-      return "type.googleapis.com/google.cloud.compute.v1.PreservedStatePreservedNetworkIpIpAddress"
+      return "type.googleapis.com/google.cloud.compute.v1.ManagedInstanceScheduling"
     }
     public init(fromAny any: GoogleCloudWkt.`Any`) throws {
       self = try GoogleCloudWkt._slowAnyDeserialize(Self.self, from: any)

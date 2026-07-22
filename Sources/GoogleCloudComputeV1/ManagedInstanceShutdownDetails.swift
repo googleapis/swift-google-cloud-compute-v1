@@ -14,22 +14,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#if InstanceGroupManagerResizeRequests || InstanceGroupManagers || RegionInstanceGroupManagerResizeRequests || RegionInstanceGroupManagers
+#if InstanceGroupManagers || RegionInstanceGroupManagers
   import Foundation
   import GoogleCloudWkt
 
-  public struct PreservedStatePreservedNetworkIpIpAddress: Codable, Equatable, GoogleCloudWkt
-      ._AnyPackable,
+  public struct ManagedInstanceShutdownDetails: Codable, Equatable, GoogleCloudWkt._AnyPackable,
     Sendable
   {
-    /// The URL of the reservation for this IP address.
-    public var address: Swift.String? = nil
+    /// Output only. The duration for graceful shutdown. Only applicable when the instance is
+    /// in `PENDING_STOP` state.
+    public var maxDuration: Duration? = nil
 
-    /// An IPv4 internal network address to assign to the instance for this
-    /// network interface.
-    public var literal: Swift.String? = nil
+    /// Output only. Past timestamp indicating the beginning of `PENDING_STOP` state of
+    /// instance in RFC3339
+    /// text format.
+    public var requestTimestamp: GoogleCloudWkt.Timestamp? = nil
 
-    /// Initialize a new instance of `PreservedStatePreservedNetworkIpIpAddress`.
+    /// Initialize a new instance of `ManagedInstanceShutdownDetails`.
     public init() {}
 
     /// Use `config` to return a new instance of this object, with some fields updated.
@@ -37,7 +38,7 @@
     /// Commonly used to initialize the value, for example:
     ///
     /// ```
-    /// let value = PreservedStatePreservedNetworkIpIpAddress().with { $0.address = ... }
+    /// let value = ManagedInstanceShutdownDetails().with { $0.maxDuration = ... }
     /// ```
     public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
       var copy = self
@@ -46,7 +47,7 @@
     }
 
     public static var _anyTypeUrl: Swift.String {
-      return "type.googleapis.com/google.cloud.compute.v1.PreservedStatePreservedNetworkIpIpAddress"
+      return "type.googleapis.com/google.cloud.compute.v1.ManagedInstanceShutdownDetails"
     }
     public init(fromAny any: GoogleCloudWkt.`Any`) throws {
       self = try GoogleCloudWkt._slowAnyDeserialize(Self.self, from: any)

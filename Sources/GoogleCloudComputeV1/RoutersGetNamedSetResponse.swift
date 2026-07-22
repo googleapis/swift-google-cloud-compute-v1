@@ -14,22 +14,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#if InstanceGroupManagerResizeRequests || InstanceGroupManagers || RegionInstanceGroupManagerResizeRequests || RegionInstanceGroupManagers
+#if Routers
   import Foundation
   import GoogleCloudWkt
 
-  public struct PreservedStatePreservedNetworkIpIpAddress: Codable, Equatable, GoogleCloudWkt
-      ._AnyPackable,
+  public struct RoutersGetNamedSetResponse: Codable, Equatable, GoogleCloudWkt._AnyPackable,
     Sendable
   {
-    /// The URL of the reservation for this IP address.
-    public var address: Swift.String? = nil
+    /// end_interface: MixerGetResponseWithEtagBuilder
+    public var etag: Swift.String? = nil
 
-    /// An IPv4 internal network address to assign to the instance for this
-    /// network interface.
-    public var literal: Swift.String? = nil
+    public var resource: NamedSet? = nil
 
-    /// Initialize a new instance of `PreservedStatePreservedNetworkIpIpAddress`.
+    /// Initialize a new instance of `RoutersGetNamedSetResponse`.
     public init() {}
 
     /// Use `config` to return a new instance of this object, with some fields updated.
@@ -37,7 +34,7 @@
     /// Commonly used to initialize the value, for example:
     ///
     /// ```
-    /// let value = PreservedStatePreservedNetworkIpIpAddress().with { $0.address = ... }
+    /// let value = RoutersGetNamedSetResponse().with { $0.etag = ... }
     /// ```
     public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
       var copy = self
@@ -46,7 +43,7 @@
     }
 
     public static var _anyTypeUrl: Swift.String {
-      return "type.googleapis.com/google.cloud.compute.v1.PreservedStatePreservedNetworkIpIpAddress"
+      return "type.googleapis.com/google.cloud.compute.v1.RoutersGetNamedSetResponse"
     }
     public init(fromAny any: GoogleCloudWkt.`Any`) throws {
       self = try GoogleCloudWkt._slowAnyDeserialize(Self.self, from: any)

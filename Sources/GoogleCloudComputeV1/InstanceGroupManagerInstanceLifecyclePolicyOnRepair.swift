@@ -14,24 +14,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#if InstanceGroupManagerResizeRequests || InstanceGroupManagers || RegionInstanceGroupManagerResizeRequests || RegionInstanceGroupManagers
+#if InstanceGroupManagers || RegionInstanceGroupManagers
   import Foundation
   import GoogleCloudWkt
 
-  public struct PreservedStatePreservedNetworkIp: Codable, Equatable, GoogleCloudWkt._AnyPackable,
+  /// Configuration for VM repairs in the MIG.
+  public struct InstanceGroupManagerInstanceLifecyclePolicyOnRepair: Codable, Equatable,
+    GoogleCloudWkt._AnyPackable,
     Sendable
   {
-    /// These stateful IPs will never be released during autohealing,
-    /// update or VM instance recreate operations.
-    /// This flag is used to configure if the IP reservation should be deleted
-    /// after it is no longer used by the group, e.g. when the given instance
-    /// or the whole group is deleted.
-    public var autoDelete: PreservedStatePreservedNetworkIp.AutoDelete? = nil
+    /// Specifies whether the MIG can change a VM's zone during a repair.
+    /// Valid values are:
+    ///
+    ///    - NO (default): MIG cannot change a VM's zone during a
+    ///    repair.
+    ///    - YES: MIG can select a different zone for the VM during
+    ///    a repair.
+    public var allowChangingZone:
+      InstanceGroupManagerInstanceLifecyclePolicyOnRepair.AllowChangingZone? = nil
 
-    /// Ip address representation
-    public var ipAddress: PreservedStatePreservedNetworkIpIpAddress? = nil
-
-    /// Initialize a new instance of `PreservedStatePreservedNetworkIp`.
+    /// Initialize a new instance of `InstanceGroupManagerInstanceLifecyclePolicyOnRepair`.
     public init() {}
 
     /// Use `config` to return a new instance of this object, with some fields updated.
@@ -39,7 +41,7 @@
     /// Commonly used to initialize the value, for example:
     ///
     /// ```
-    /// let value = PreservedStatePreservedNetworkIp().with { $0.autoDelete = ... }
+    /// let value = InstanceGroupManagerInstanceLifecyclePolicyOnRepair().with { $0.allowChangingZone = ... }
     /// ```
     public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
       var copy = self
@@ -47,12 +49,14 @@
       return copy
     }
 
-    /// The enumerated type for the [autoDelete][google.cloud.compute.v1.PreservedStatePreservedNetworkIp.autoDelete] field.
+    /// The enumerated type for the [allowChangingZone][google.cloud.compute.v1.InstanceGroupManagerInstanceLifecyclePolicyOnRepair.allowChangingZone] field.
     ///
-    /// [google.cloud.compute.v1.PreservedStatePreservedNetworkIp.autoDelete]: <doc:PreservedStatePreservedNetworkIp/AutoDelete>
-    public enum AutoDelete: Codable, Equatable, Sendable {
-      case never
-      case onPermanentInstanceDeletion
+    /// [google.cloud.compute.v1.InstanceGroupManagerInstanceLifecyclePolicyOnRepair.allowChangingZone]: <doc:InstanceGroupManagerInstanceLifecyclePolicyOnRepair/AllowChangingZone>
+    public enum AllowChangingZone: Codable, Equatable, Sendable {
+      /// [Default] MIG cannot change a VM's zone during a repair.
+      case no
+      /// MIG can select a different zone for the VM during a repair.
+      case yes
       /// Encodes an unknown integer value.
       ///
       /// The most common cause for an unknown values is for the service to send
@@ -67,7 +71,7 @@
       case unknownStringValue(String)
 
       public init() {
-        self = .never
+        self = .no
       }
 
       /// Returns the integer value associated with the enumeration.
@@ -75,8 +79,8 @@
       /// If the enumeration was initialized with an unknown string value, this returns `nil`.
       public var intValue: Int? {
         switch self {
-        case .never: return 0
-        case .onPermanentInstanceDeletion: return 1
+        case .no: return 0
+        case .yes: return 1
         case .unknownIntValue(let v): return v
         case .unknownStringValue: return nil
         }
@@ -87,8 +91,8 @@
       /// If the enumeration was initialized with an unknown integer value, this returns `nil`.
       public var stringValue: Swift.String? {
         switch self {
-        case .never: return "NEVER"
-        case .onPermanentInstanceDeletion: return "ON_PERMANENT_INSTANCE_DELETION"
+        case .no: return "NO"
+        case .yes: return "YES"
         case .unknownIntValue: return nil
         case .unknownStringValue(let v): return v
         }
@@ -99,8 +103,8 @@
       /// If the value is unknown, this initializes to ``.unknownStringValue(_:)``.
       public init(stringValue: Swift.String) {
         switch stringValue {
-        case "NEVER": self = .never
-        case "ON_PERMANENT_INSTANCE_DELETION": self = .onPermanentInstanceDeletion
+        case "NO": self = .no
+        case "YES": self = .yes
         default: self = .unknownStringValue(stringValue)
         }
       }
@@ -110,8 +114,8 @@
       /// If the value is unknown, this initializes to ``.unknownIntValue(_:)``.
       public init(intValue: Int) {
         switch intValue {
-        case 0: self = .never
-        case 1: self = .onPermanentInstanceDeletion
+        case 0: self = .no
+        case 1: self = .yes
         default: self = .unknownIntValue(intValue)
         }
       }
@@ -137,8 +141,8 @@
       public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case .never: return try container.encode(0)
-        case .onPermanentInstanceDeletion: return try container.encode(1)
+        case .no: return try container.encode(0)
+        case .yes: return try container.encode(1)
         case .unknownIntValue(let v): return try container.encode(v)
         case .unknownStringValue(let v): return try container.encode(v)
         }
@@ -146,7 +150,8 @@
     }
 
     public static var _anyTypeUrl: Swift.String {
-      return "type.googleapis.com/google.cloud.compute.v1.PreservedStatePreservedNetworkIp"
+      return
+        "type.googleapis.com/google.cloud.compute.v1.InstanceGroupManagerInstanceLifecyclePolicyOnRepair"
     }
     public init(fromAny any: GoogleCloudWkt.`Any`) throws {
       self = try GoogleCloudWkt._slowAnyDeserialize(Self.self, from: any)
