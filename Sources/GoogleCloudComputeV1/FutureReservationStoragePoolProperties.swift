@@ -14,25 +14,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#if FutureReservations || StoragePools
+#if FutureReservations
   import Foundation
   @_spi(GoogleCloudInternal) import GoogleCloudWKT
 
-  /// Exapool provisioned capacities for each SKU type
-  public struct StoragePoolExapoolProvisionedCapacityGb: Codable, Equatable, GoogleCloudWKT
+  /// Storage pool properties for the future reservation.
+  public struct FutureReservationStoragePoolProperties: Codable, Equatable, GoogleCloudWKT
       ._AnyPackable,
     Sendable
   {
-    /// Size, in GiB, of provisioned capacity-optimized capacity for this Exapool
-    public var capacityOptimized: Swift.Int64? = nil
+    /// Requested exapool provisioned capacity in GiB.
+    public var requestedExapoolProvisionedCapacityGb: StoragePoolExapoolProvisionedCapacityGb? = nil
 
-    /// Size, in GiB, of provisioned read-optimized capacity for this Exapool
-    public var readOptimized: Swift.Int64? = nil
+    /// Requested storage pool provisioned capacity.
+    public var requestedStoragePoolProvisionedCapacity:
+      FutureReservationStoragePoolProvisionedCapacity? = nil
 
-    /// Size, in GiB, of provisioned write-optimized capacity for this Exapool
-    public var writeOptimized: Swift.Int64? = nil
+    /// Type of the storage pool.
+    public var storagePoolType: Swift.String? = nil
 
-    /// Initialize a new instance of `StoragePoolExapoolProvisionedCapacityGb`.
+    /// Initialize a new instance of `FutureReservationStoragePoolProperties`.
     public init() {}
 
     /// Use `config` to return a new instance of this object, with some fields updated.
@@ -40,7 +41,7 @@
     /// Commonly used to initialize the value, for example:
     ///
     /// ```
-    /// let value = StoragePoolExapoolProvisionedCapacityGb().with { $0.capacityOptimized = ... }
+    /// let value = FutureReservationStoragePoolProperties().with { $0.requestedExapoolProvisionedCapacityGb = ... }
     /// ```
     public func with(_ config: (inout Self) throws -> Swift.Void) rethrows -> Self {
       var copy = self
@@ -49,7 +50,7 @@
     }
 
     public static var _anyTypeUrl: Swift.String {
-      return "type.googleapis.com/google.cloud.compute.v1.StoragePoolExapoolProvisionedCapacityGb"
+      return "type.googleapis.com/google.cloud.compute.v1.FutureReservationStoragePoolProperties"
     }
     public init(fromAny any: GoogleCloudWKT.`Any`) throws {
       self = try GoogleCloudWKT._slowAnyDeserialize(Self.self, from: any)
